@@ -7,8 +7,7 @@
 ##Comments: This function will print the user interacting screen.
 
 initial_menu() {
-  
-	echo -e "\n"
+  	echo -e "\n"
 	echo "MAIN MENU"
 	echo "Select an option between 1 to 8"
 	echo "1. Change Password"
