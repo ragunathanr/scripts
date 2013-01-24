@@ -35,7 +35,7 @@ get_option() {
 	read option
 	if [ x"$option" != x ] ; then
 		if (( $option < 1 || $option > 8 )) ; then
-			echo "Entered value out of Range..Try again!"
+			echo -e "\nEntered value out of Range..Try again!"
 			initial_menu
 		else 
 			call_case $option
@@ -60,7 +60,7 @@ change_passwd() {
 	echo -n "Enter the Password : "
 	read -s pass
 	if [[ -z $username || -z $pass ]] ; then
-		echo "Username or Password should not be Blank..Try again"
+		echo -e "\nUsername or Password should not be Blank..Try again"
 		initial_menu
 	else
 		id -a $username &> /dev/null
@@ -72,7 +72,7 @@ change_passwd() {
 					echo -e "\nUnable to change password. Please try manually"
 				fi
 		else
-			echo "User: $username not exising on the server"
+			echo -e "\nUser: $username not exising on the server"
 		fi
 	fi
 	sleep 2
@@ -90,20 +90,20 @@ kill_app () {
 	echo -n "Enter the Application Process Name:"
         read app
 	if [ -z $app ]; then
-		echo "Application Name should not be blank"
+		echo -e "\nApplication Name should not be blank"
 	   else
-           	ps -ef | grep -i $app | grep -v grep > /dev/null
+           	ps -ef | grep -i $app | grep -v grep &> /dev/null
            if [ $? -ne 0 ]; then
-           	echo "Unable to locate any of $app processes."
+           	echo -e "\nUnable to locate any of $app processes."
 	   	else
-	   	echo "Killing the application processes..."
+	   	echo -e "\nKilling the application processes..."
 	   	sleep 1
            	pkill $app
-	   	ps -ef | grep -i $app | grep -v grep > /dev/null
+	   	ps -ef | grep -i $app | grep -v grep &> /dev/null
 	   	if [ $? -ne 0 ]; then
-			echo "Killed the Application Successfully."
+			echo -e "\nKilled the Application Successfully."
         	else
-			echo "Unable to kill the application. Manual intervention required"
+			echo -e "\nUnable to kill the application. Manual intervention required"
 			sleep 1
 		fi
  	    fi
@@ -123,7 +123,7 @@ remote_ssh () {
 	echo -n "Enter the Username: "
 	read remoteuser
 	if [[ -z $hostip  || -z $remoteuser ]]; then
-		echo "Hostname/IP (or) Username should not be blank"
+		echo -e "\nHostname/IP (or) Username should not be blank"
 		else
 			ssh $remoteuser@$hostip
 	fi
@@ -136,12 +136,12 @@ remote_ssh () {
 ##Comments: Checks java processes using ps command and displays the output
 
 show_java () {
-	ps -ef | grep -i java | grep -v grep > /dev/null
+	ps -ef | grep -i java | grep -v grep &> /dev/null
 	if [ $? -eq 0 ]; then
-		echo "JAVA Applications are Running and the processes are:"
+		echo -e "\nJAVA Application Running and the processes are:"
 		ps -ef | grep -i java
 	else
-		echo "Unable to locate any of JAVA Application processes."
+		echo -e "\nNo JAVA processes running on the server."
 	fi
 }
 		
@@ -156,7 +156,7 @@ case "$option" in
 	1) change_passwd 
 	;;
 
-	2) echo "Disk Space Usage:"
+	2) echo -e "\nDisk Space Usage:"
            df -h
 	   initial_menu
         ;;
@@ -164,7 +164,7 @@ case "$option" in
 	3) remote_ssh
 	;;
 
-	4) echo "Services Currently Running on the server:"
+	4) echo -e "\nServices Currently Running on the server:"
            ps -ef
         ;;
 
@@ -177,8 +177,7 @@ case "$option" in
 	7) kill_app
 	;;
 
-	8) echo "I am Exiting.....Bye"
-		sleep 1
+	8) echo -e "\nExiting.....Bye"
 		exit 0
 	;;
 
