@@ -62,14 +62,14 @@ change_passwd() {
 	echo -n "Enter the Username : "
 	read username
 	echo -n "Enter the Password : "
-	read -s pass
+	read -s pass						#Password won't be visible in screen 
 	if [[ -z $username || -z $pass ]] ; then
 		echo -e "\nUsername or Password should not be Blank..Try again"
 		initial_menu
 	else
-		id -a $username &> /dev/null
+		id -a $username &> /dev/null			#To check if uderid exists
 		if [ $? -eq 0 ]; then
-			echo $pass | passwd --stdin $username &> /dev/null
+			echo $pass | passwd --stdin $username &> /dev/null    #Password change
 				if [ $? -eq 0 ]; then
 					echo -e "\nPassword has been changed for user $username"
 				else
