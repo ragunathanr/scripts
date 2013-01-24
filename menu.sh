@@ -1,5 +1,10 @@
 #!/bin/bash
 
+##How To Run
+##1. Download the script
+##2. chmod +x menu.sh
+##3. ./menu.sh
+
 ##Function name: initial_menu
 ##Inputs: NONE
 ##Called from: get_option() call_case()
